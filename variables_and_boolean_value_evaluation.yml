@@ -1,0 +1,26 @@
+
+ #  ansible-playbook variables_and_boolean_value_evaluation.yml -e "install_mariadb=true test_flag=true"
+
+- hosts: localhost
+  vars:
+    install_mariadb: true
+  tasks:
+    - name: Check if MariaDB installation is enabled
+      debug:
+        msg: "MariaDB will be installed."
+      when: install_mariadb|bool
+
+    - name: Print a message when MariaDB is not installed
+      debug:
+        msg: "MariaDB installation skipped."
+      when: not install_mariadb|bool
+
+    - name: Print a message when test_flag is true
+      debug:
+          msg: "{{test_flag}}"
+      when: test_flag|bool
+
+    - name: Print a message when test_flag is false
+      debug:
+          msg: "{{test_flag}}"
+      when: not test_flag|bool
