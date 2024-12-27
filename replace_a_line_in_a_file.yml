@@ -1,0 +1,13 @@
+
+ #  ansible-playbook replace_a_line_in_a_file.yml
+
+ # https://stackoverflow.com/questions/40788575/replace-a-line-in-a-config-file-with-ansible
+
+- hosts: localhost
+  tasks:
+    - name: replace line
+      lineinfile:
+        path: /tmp/somefile3.conf
+        regexp: '^(.*)masterauth(.*)$' 
+        line: 'masterauth testpwd'
+        backrefs: yes

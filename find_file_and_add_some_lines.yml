@@ -1,0 +1,39 @@
+
+ #  ansible-playbook find_file_and_add_some_lines.yml
+
+ # https://stackoverflow.com/questions/68346813/find-file-and-add-lines-ansible
+
+- hosts: localhost
+  tasks:
+    - name: find file
+      find:
+        paths: /tmp
+        patterns: 'somefile.conf'
+      register: result
+    - debug:
+        msg: "{{ result.files|map(attribute='path')|list }}"
+
+    - lineinfile:
+        path: "{{ item }}"
+        line: "last line"
+        insertafter: EOF
+      loop: "{{ result.files|map(attribute='path')|list }}"
+
+    - name: find file2
+      find:
+        paths: /tmp
+        patterns: 'somefile2.conf'
+      register: result2
+    - debug:
+        msg: "{{ result2.files|map(attribute='path')|list }}"
+
+    - blockinfile:
+        path: "{{ item }}"
+        block: |
+          last line -2
+          last line -1
+          last line
+        insertafter: EOF
+      loop: "{{ result2.files|map(attribute='path')|list }}"
+
+      
