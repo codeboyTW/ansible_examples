@@ -1,7 +1,9 @@
 
- #  ansible-playbook replace_a_line_in_a_file.yml
+#  ansible-playbook replace_a_line_in_a_file.yml
 
- # https://stackoverflow.com/questions/40788575/replace-a-line-in-a-config-file-with-ansible
+# https://stackoverflow.com/questions/40788575/replace-a-line-in-a-config-file-with-ansible
+# https://www.reddit.com/r/ansible/comments/snl2ts/insert_text_on_a_specific_line_of_a_file/?rdt=45470
+# https://hellogitlab.com/CM/ansible/lineinfile
 
 - hosts: localhost
   tasks:
@@ -11,3 +13,18 @@
         regexp: '^(.*)masterauth(.*)$' 
         line: 'masterauth testpwd'
         backrefs: yes
+
+    - name: replace line
+      lineinfile:
+        path: /tmp/somefile4.conf
+        search_string: '^(.*)AAAA(.*)$' 
+        insertbefore: 'CCCC'
+        line: 'BBBB'
+
+    - name: replace line
+      lineinfile:
+        path: /tmp/somefile5.conf
+        search_string: '^(.*)AAAA(.*)$' 
+        insertafter: 'CCCC'
+        line: 'BBBB'
+
