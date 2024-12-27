@@ -1,6 +1,9 @@
 
  #  ansible-playbook variables_and_boolean_value_evaluation.yml -e "install_mariadb=true test_flag=true"
 
+ # https://www.junmajinlong.com/ansible/8_learn_back/
+ # https://stackoverflow.com/questions/39640654/using-true-false-with-ansible-when-clause
+
 - hosts: localhost
   vars:
     install_mariadb: true
