@@ -1,0 +1,12 @@
+
+ #  ansible-playbook create_a-directory_if_it_does_not_exist.yml
+
+ #https://stackoverflow.com/questions/62392584/ansible-to-check-particular-directory-exists-if-not-create-it
+
+- hosts: localhost
+  tasks:
+    - name: Create a directory if it does not exist
+      file:
+        path: /tmp/test
+        state: directory
+        mode: '0755'
